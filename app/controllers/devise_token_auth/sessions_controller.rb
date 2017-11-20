@@ -112,8 +112,11 @@ module DeviseTokenAuth
     end
 
     def render_create_success
+      @auth_header = @resource.build_auth_header(@token, @client_id)
+
       render json: {
-        data: resource_data(resource_json: @resource.token_validation_response)
+        data: resource_data(resource_json: @resource.token_validation_response),
+        auth: @auth_header
       }
     end
 
